@@ -310,6 +310,9 @@ class variable_handler(object):
 
         labels = self.labels(variable_format, latex = False)
         theta = np.atleast_2d(theta)
+
+        print(theta)
+        exit(0)
         
         is_ok = True
         if raise_error: bad_labels = []
@@ -326,6 +329,9 @@ class variable_handler(object):
 
 
     def switch_BBH(self, theta, variable_format):
+
+        # unchanged for now 
+        
         """
         Given theta, it returns the theta components of the system with switched BBH masses (so that m1>m2)
         If only BH1 has an in-plane component, only the z components of the spins will be switched: this is equivalent to assume that the in-plane spin of BH1 is a collective spin.
@@ -446,6 +452,13 @@ class variable_handler(object):
         elif self.format_info[variable_format]['spin_format'] == 'fullspins':
             if latex: labels.extend([r'$s_{1}$', r'$\theta_1$', r'$\phi_1$', r'$s_{2}$', r'$\theta_2$', r'$\phi_2$'])
             else: labels.extend(['s1','theta1', 'phi1', 's2', 'theta2', 'phi2'])
+
+        if self.format_info[variable_format]['tidal_format'] == 'l1l2':
+            if latex: labels = [r'$\Lambda_1$', r'$\Lambda_2$']
+            else: labels = ['lambda1', 'lambda2']
+        elif self.format_info[variable_format]['tidal_format'] == 'notides':
+            pass
+
         
         if self.format_info[variable_format]['e'] and latex: labels.append(r'$e$')
         if self.format_info[variable_format]['e'] and not latex: labels.append('e')
@@ -511,6 +524,9 @@ class variable_handler(object):
         return self.format_info[variable_format]
 
     def get_BBH_components_from_table(self, table):
+
+        # not changed, need to see what happens here with a non-mbank tidal bank
+        
         """
         Given the ``BBH components``, it returns the components suitable for the bank.
         **Currently it doesn't support eccentricity**
