@@ -34,7 +34,7 @@ from ligo.lw.utils import load_filename
 from tqdm import tqdm
 import ray
 
-from .handlers import variable_handler
+from mbank.handlers import variable_handler
 
 #############DEBUG LINE PROFILING
 try:
@@ -132,9 +132,14 @@ def avg_dist(avg_match, D):
 
 ####################################################################################################################
 
-def get_boundaries_from_ranges(variable_format, M_range, q_range,
-	s1_range = (-0.99,0.99), s2_range = (-0.99,0.99), chi_range = (-0.99,0.99), theta_range = (-np.pi, np.pi), phi_range = (-np.pi/2., np.pi/2.),
-	iota_range = (0, np.pi), ref_phase_range = (-np.pi, np.pi), e_range = (0., 0.5), meanano_range = (0.1, 1.)):
+def get_boundaries_from_ranges(variable_format, M_range, q_range, s1_range = (-0.99,0.99), 
+    s2_range = (-0.99,0.99), chi_range = (-0.99,0.99), theta_range = (-np.pi, np.pi), 
+    tidal_range = (0,5000), phi_range = (-np.pi/2., np.pi/2.), iota_range = (0, np.pi), 
+    ref_phase_range = (-np.pi, np.pi), e_range = (0., 0.5), meanano_range = (0.1, 1.)):
+
+    # will need to change this when we have more strict or complex variables 
+    # is fine to stay as it is for component tides component masses and non spinning.
+    
 	"""
 	Given the ranges of each quantity, it combines them in a bondary array, suitable for other uses in the package (for instance in the bank generation).
 	No checks are performed whether the given ranges make sense.

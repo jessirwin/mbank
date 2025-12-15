@@ -21,11 +21,11 @@ import ray
 
 import scipy.spatial
 
-from .placement import place_stochastically_in_tile, place_stochastically, place_iterative, place_random_tiling, place_pruning, create_mesh
-from .utils import DefaultSnglInspiralTable, avg_dist, read_xml, partition_tiling, split_boundaries, plawspace, get_boundary_box
+from placement import place_stochastically_in_tile, place_stochastically, place_iterative, place_random_tiling, place_pruning, create_mesh
+from utils import DefaultSnglInspiralTable, avg_dist, read_xml, partition_tiling, split_boundaries, plawspace, get_boundary_box
 
-from .handlers import variable_handler, tiling_handler
-from .metric import cbc_metric
+from handlers import variable_handler, tiling_handler
+from metric import cbc_metric
 
 ############
 #TODO: create a package for placing N_points in a box with lloyd algorithm (extra)

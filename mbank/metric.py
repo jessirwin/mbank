@@ -24,8 +24,8 @@ import lalsimulation as lalsim
 
 import warnings
 
-from .handlers import variable_handler
-from .utils import project_metric, get_projected_metric
+from handlers import variable_handler
+from utils import project_metric, get_projected_metric
 
 	#TODO: understand whether it's a good idea to use anycache
 #from anycache import anycache
@@ -306,7 +306,7 @@ class cbc_metric(object):
 			Logarithm of the pdf, ready to use for sampling
 		"""
 		theta = np.asarray(theta)
-		
+
 		if theta.ndim == 1:
 			theta = theta[None,:]
 			reshape = True
