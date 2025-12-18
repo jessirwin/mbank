@@ -9,16 +9,18 @@ from mbank.utils import load_PSD, plot_tiles_templates, get_boundaries_from_rang
 from mbank.flow import STD_GW_Flow
 from mbank.flow.utils import early_stopper, plot_loss_functions
 import numpy as np
+import corner
+import matplotlib.pyplot as plt
 
 # format of the variables we have
-variable_format = 'm1m2_nonspinning_l1l2'
+variable_format = 'Mq_nonspinning_lambdatilde'
 dims = 4 # dimensions of the parameter space, m1m2l1l2
 
 # set boundaries for each parameter
 boundaries = [[1,1,0,0],[3,3,5000,5000]]
 
 # need to reformat this to allow for different parameterisations of tides
-# boundaries = get_boundaries_from_ranges(variable_format, (1,6), (0.333,1))
+boundaries = get_boundaries_from_ranges(variable_format, (1,6), (0.333,1))
 
 print('variables and boundaries set')
 
@@ -38,6 +40,7 @@ print('metric established')
 # flow training 
 ######################
 
+# this is just the progress bar
 from tqdm import tqdm
 from torch import optim
 
@@ -48,9 +51,25 @@ from torch import optim
 train_data = np.random.uniform(*boundaries, (10000, dims))
 validation_data = np.random.uniform(*boundaries, (300, dims))
 
+###################
+# plot training and validation data
+
+# val_corner = corner.corner(validation_data, color = 'indigo', plot_contours = False, plot_DataPoints = True)
+# corner.corner(train_data, fig = val_corner, color = 'steelblue', plot_contours = False, plot_DataPoints = True)
+# plt.savefig('./testing/train_val_data.png')
+# plt.close()
+
+###################
+# 
+
+from mbank.metric import test_metric
+test_metric(train_data, boundaries)
+# testing different parts of the function by commenting out other bits
+exit(0)
+
 # make training, validation data
-train_ll = np.array([metric_.log_pdf(s) for s in tqdm(train_data)])
-validation_ll = np.array([metric_.log_pdf(s) for s in tqdm(validation_data)])
+train_ll = np.array([metric_.log_pdf(s, boundaries) for s in tqdm(train_data)])
+validation_ll = np.array([metric_.log_pdf(s, boundaries) for s in tqdm(validation_data)])
 
 print('pre establish flow')
 exit(0)
