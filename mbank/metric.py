@@ -24,10 +24,10 @@ import lalsimulation as lalsim
 
 import warnings
 
-from handlers import variable_handler
-from utils import project_metric, get_projected_metric
+from .handlers import variable_handler
+from .utils import project_metric, get_projected_metric, load_PSD
 
-	#TODO: understand whether it's a good idea to use anycache
+#TODO: understand whether it's a good idea to use anycache
 #from anycache import anycache
 
 #############DEBUG LINE PROFILING
@@ -333,6 +333,7 @@ class cbc_metric(object):
 		if reshape: theta = np.squeeze(theta)
 
 		return res
+        # return reshape
 	
 	def get_metric_test(self, theta):
 		theta = np.atleast_2d(theta)
@@ -1819,6 +1820,21 @@ class cbc_metric(object):
 		points = np.matmul(points_prime, L_inv.T)
 		
 		return points
+
+def test_metric(theta, boundaries):
+
+    #testing function works!!
+    m = cbc_metric('m1m2_nonspinning_l1l2', PSD = load_PSD('/home/jessica.irwin/test-banks/banks_mbank/bns_bank/aligo_O3actual_H1.txt', True, 'H1'), approx = 'IMRPhenomD_NRTidal', f_min = 10, f_max = 1024)
+
+    # need to come back here and investigate this metric test
+    logpdf = m.log_pdf(theta, boundaries)
+    print(np.shape(logpdf))
+    print(logpdf)
+
+    return
+
+if __name__ == "__main__":
+    test_metric()
 	
 	
 	

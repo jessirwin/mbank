@@ -141,7 +141,7 @@ def get_boundaries_from_ranges(variable_format, M_range, q_range, s1_range = (-0
     # is fine to stay as it is for component tides component masses and non spinning.
     
 	"""
-	Given the ranges of each quantity, it combines them in a bondary array, suitable for other uses in the package (for instance in the bank generation).
+	Given the ranges of each quantity, it combines them in a boundary array, suitable for other uses in the package (for instance in the bank generation).
 	No checks are performed whether the given ranges make sense.
 	
 	Parameters

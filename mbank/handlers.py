@@ -145,13 +145,13 @@ class variable_handler(object):
         self.s_formats = ['nonspinning', 'chi', 's1z', 's1z_s2z', 's1xz', 's1xyz','s1xz_s2z', 's1xyz_s2z', 'fullspins'] #spin layouts
         self.e_formats = ['', 'e', 'emeanano'] #eccentric layouts
         self.angle_formats = ['', 'iota', 'iotaphi'] #angles layouts
-        self.t_formats = ['notides', 'l1l2'] #tidal layouts 
+        self.t_formats = ['notides', 'lambdatilde'] #tidal layouts 
 
             #hard coding dimensions for each format
         D_spins = {'nonspinning':0, 'chi':1, 's1z':1, 's1z_s2z':2, 's1xz':2, 's1xyz':3, 's1xz_s2z':3, 's1xyz_s2z':4, 'fullspins': 6} #dimension of each spin format
         D_ecc = {'':0, 'e':1, 'emeanano':2} #dimension of each eccentric format
         D_angles = {'':0, 'iota':1, 'iotaphi':2} #dimension of each angle format
-        D_tides = {'notides':0, 'l1l2':2}
+        D_tides = {'notides':0, 'lambdatilde':1}
 
             #creating info dictionaries
         self.format_info = {}
@@ -177,8 +177,8 @@ class variable_handler(object):
         
             #Adding format BBH_components
         self.valid_formats.append('BBH_components')
-        self.format_D['BBH_components'] = 14
-        self.format_info['BBH_components'] = {'D':14,
+        self.format_D['BBH_components'] = 13
+        self.format_info['BBH_components'] = {'D':13,
                 'mass_format': 'BBH_components', 'spin_format': 'BBH_components',
                 'tidal_format': 'BBH_components', 'eccentricity_format': 'BBH_components', 
                 'angle_format': 'BBH_components', 'e': True, 'meanano':True,
@@ -197,7 +197,7 @@ class variable_handler(object):
                 #FIXME: you should think VERY VERY carefully on the way you treat the spin variables.
                 #At the moment, mbank cannot cover the negative s1x region in for spin format s1xz
                 's1': (0., self.MAX_BBH_SPIN), 's2': (0., self.MAX_BBH_SPIN),
-                'lambda1':(0,np.inf), 'lambda2': (0,np.inf),
+                'lambdatilde':(0,np.inf), #'lambda2': (0,np.inf),
                 'theta1':(-np.pi, np.pi), 'phi1':(-np.pi, np.pi),
                 'theta2':(-np.pi, np.pi), 'phi1':(-np.pi, np.pi),
                 'iota': (0.,np.pi), 'phi': (-np.inf, np.inf),
@@ -241,12 +241,12 @@ class variable_handler(object):
             'theta2': lambda x: np.arctan2(np.linalg.norm(x[:,[5,6]], axis = -1)*np.sign(x[:,5]), x[:,7]),
             'phi2': lambda x: np.arctan(x[:,6]/(x[:,5]+1e-20)),
             # changed from here
-            'lambda1': lambda x: x[:,8],
-            'lambda2': lambda x: x[:,9],
-            'e': lambda x: x[:,10],
-            'meanano': lambda x: x[:11],
-            'iota': lambda x: x[:,12],
-            'phi': lambda x: x[:,13]
+            'lambdatilde': lambda x: x[:,8],
+            #'lambda2': lambda x: x[:,9],
+            'e': lambda x: x[:,9],
+            'meanano': lambda x: x[:10],
+            'iota': lambda x: x[:,11],
+            'phi': lambda x: x[:,12]
         }
 
         # #Adding a set of functions to extract some values from the BNS components
@@ -278,7 +278,7 @@ class variable_handler(object):
             setattr(self, 'get_'+v, tg)
         
         self.comp_getter = [
-        'm1', 'm2', 's1x', 's1y', 's1z', 's2x', 's2y', 's2z', 'l1', 'l2', 'e', 'meanano', 'iota', 'phi'
+        'm1', 'm2', 's1x', 's1y', 's1z', 's2x', 's2y', 's2z', 'lambdatilde', 'e', 'meanano', 'iota', 'phi'
         ] #does this obj make sense?
                 
         
@@ -403,8 +403,8 @@ class variable_handler(object):
         assert variable_format in self.valid_formats, "Wrong variable format given"
         
         if variable_format == 'BBH_components':
-            if latex: labels = [r'$m_1$', r'$m_2$', r'$s_{1x}$', r'$s_{1y}$', r'$s_{1z}$', r'$s_{2x}$', r'$s_{2y}$', r'$s_{2z}$', r'$\Lambda_1$', r'$\Lambda_2$', r'$e$', r'$meanano$', r'$\iota$', r'$\varphi$']
-            else:  labels = ['m1', 'm2', 's1x', 's1y', 's1z', 's2x', 's2y', 's2z', 'l1', 'l2', 'e', 'meanano', 'iota', 'phi']
+            if latex: labels = [r'$m_1$', r'$m_2$', r'$s_{1x}$', r'$s_{1y}$', r'$s_{1z}$', r'$s_{2x}$', r'$s_{2y}$', r'$s_{2z}$', r'$\Tilde{\Lambda}$', r'$e$', r'$meanano$', r'$\iota$', r'$\varphi$']
+            else:  labels = ['m1', 'm2', 's1x', 's1y', 's1z', 's2x', 's2y', 's2z', 'lambdatilde', 'e', 'meanano', 'iota', 'phi']
             return labels
         
         if self.format_info[variable_format]['mass_format'] == 'm1m2':
@@ -450,9 +450,9 @@ class variable_handler(object):
             if latex: labels.extend([r'$s_{1}$', r'$\theta_1$', r'$\phi_1$', r'$s_{2}$', r'$\theta_2$', r'$\phi_2$'])
             else: labels.extend(['s1','theta1', 'phi1', 's2', 'theta2', 'phi2'])
 
-        if self.format_info[variable_format]['tidal_format'] == 'l1l2':
-            if latex: labels = [r'$\Lambda_1$', r'$\Lambda_2$']
-            else: labels = ['lambda1', 'lambda2']
+        if self.format_info[variable_format]['tidal_format'] == 'lambdatilde':
+            if latex: labels = [r'$\Tilde{\Lambda}$']
+            else: labels = ['lambdatilde']
         elif self.format_info[variable_format]['tidal_format'] == 'notides':
             pass
 
@@ -518,8 +518,8 @@ class variable_handler(object):
             Dictionary with the info for the format
         """
 
-        print(self.valid_formats)
-        exit(0)
+        # print(self.valid_formats)
+        # exit(0)
         assert variable_format in self.valid_formats, "Wrong variable format given"
         return self.format_info[variable_format]
 
