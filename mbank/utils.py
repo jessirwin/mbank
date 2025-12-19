@@ -173,10 +173,16 @@ def get_boundaries_from_ranges(variable_format, M_range, q_range, s1_range = (-0
 		if s2_range[0]< 0: s2_range = (0, s2_range[1])
 	
 	if format_info['mass_format'] == 'logMq':
-		M_range = np.log10(np.asarray(M_range))
+		M_range = np.array(np.asarray(M_range))
 	if format_info['mass_format'] == 'logm1logm2':
 		M_range = np.log10(np.asarray(M_range))
 		q_range = np.log10(np.asarray(q_range))
+
+    
+	if format_info['tidal_format'] == 'lambdatilde':
+		boundaries = np.array([[M_range[0], q_range[0], tidal_range[0]],[M_range[1], q_range[1], tidal_range[1]]])
+	if format_info['tidal_format'] == 'notides':
+		boundaries = np.array([[M_range[0], q_range[0]],[M_range[1], q_range[1]]])
 		
 		#setting spin boundaries
 	if format_info['spin_format'] == 'nonspinning':
@@ -199,6 +205,11 @@ def get_boundaries_from_ranges(variable_format, M_range, q_range, s1_range = (-0
 		boundaries = np.array([[M_range[0], q_range[0], s1_range[0], theta_range[0], phi_range[0], s2_range[0], theta_range[0], phi_range[0],],[M_range[1], q_range[1], s1_range[1], theta_range[1], phi_range[1], s2_range[1], theta_range[1], phi_range[1]]])
 	else:
 		raise RuntimeError("Boundaries current not implemented for the required format of spins {}: apologies :(".format(format_info['spin_format']))
+    
+	if format_info['tidal_format'] == 'lambdatilde':
+		boundaries = np.concatenate([boundaries, [[tidal_range[0]],[tidal_range[1]]]], axis = 1)
+	if format_info['tidal_format'] == 'notides':
+		boundaries = boundaries
 
 	if format_info['e']:
 		boundaries = np.concatenate([boundaries, [[e_range[0]], [e_range[1]]]], axis =1)
@@ -394,6 +405,8 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 	sky_locs = inj_dict['sky_loc']
 	
 	old_format = metric_obj.variable_format
+    print(metric_obj.variable_format)
+    print('old format')
 	if metric_obj.variable_format != 'BBH_components':
 		metric_obj.set_variable_format('BBH_components')
 
@@ -403,7 +416,7 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 	inj_dict['symphony_SNR'] = symphony_match
 	inj_dict['mchirp_window'] = mchirp_window
 
-		#putting injections and templates with the format 'm1m2_fullspins_emeanano_iotaphi'
+		#putting injections and templates with the format 'm1m2_fullspins_tides_emeanano_iotaphi'
 		# The format is basically the full 12 dimensional space, with spins in spherical coordinates
 	injs = inj_dict['theta_inj']
 	templates = bank.BBH_components
@@ -525,7 +538,7 @@ def initialize_inj_stat_dict(injs, sky_locs = None):
 	"""
 		#Making a copy of the original injs
 	injs = np.array(injs)
-	if injs.shape[1] != 12:
+	if injs.shape[1] != 13:
 		raise ValueError("Wrong input size for the injections: each injection must have 12 dimensions but {} given".format(injs.shape[1]))
 	if isinstance(sky_locs, (list, np.ndarray)):
 		sky_locs = np.array(sky_locs)

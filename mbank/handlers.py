@@ -649,6 +649,11 @@ class variable_handler(object):
             Components of the BBH.
             Columns of the array are `m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, e, meanano iota, phi`.
         """
+
+        # check if theta is a tensor
+        if isinstance(theta, torch.Tensor):
+            theta = theta.detach().numpy()
+
         theta, squeeze = self._check_theta_and_format(theta, variable_format)
         
         assert theta.shape[1]==self.D(variable_format), "The number of BBH parameter doesn't fit into the given variable format. Expected {}, given {}".format(self.D(variable_format), theta.shape[1])
@@ -705,6 +710,10 @@ class variable_handler(object):
             s2x, s2y = theta[:,5]*np.sin(theta[:,6])*np.cos(theta[:,7]), theta[:,5]*np.sin(theta[:,6])*np.sin(theta[:,7])
             s2z = theta[:,5]*np.cos(theta[:,6])
 
+            #setting the tides
+        if self.format_info[variable_format]['tidal_format'] == 'lambdatilde':
+            lambdatilde = theta[:,2]
+
             #dealing with angles and eccentricity (tricky!!)
         assign_var =  [self.format_info[variable_format]['e'], self.format_info[variable_format]['meanano'],
                 self.format_info[variable_format]['iota'], self.format_info[variable_format]['phi']]
@@ -721,6 +730,8 @@ class variable_handler(object):
                 vars_to_assign.append(np.zeros(m1.shape))
         e, meanano, iota, phi = vars_to_assign
 
+        #### need to build function here to account for no tides
+
             #setting spins to zero, if they need to be
         def set_zero_spin(s):
             ids_ = np.where(np.abs(s)<1e-10)[0]
@@ -729,7 +740,7 @@ class variable_handler(object):
         s1x, s1y, s1z = set_zero_spin(s1x), set_zero_spin(s1y), set_zero_spin(s1z)
         s2x, s2y, s2z = set_zero_spin(s2x), set_zero_spin(s2y), set_zero_spin(s2z)
         
-        BBH_comps = np.stack([m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, e, meanano, iota, phi], axis = 1)
+        BBH_comps = np.stack([m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, lambdatilde, e, meanano, iota, phi], axis = 1)
         
         if squeeze: BBH_comps = np.squeeze(BBH_comps)
         
@@ -754,6 +765,8 @@ class variable_handler(object):
             mchirp: :class:`~numpy:numpy.ndarray`
                 Chirp mass of each BBH
         """
+        print('in handlers')
+        print(variable_format)
         theta, squeeze = self._check_theta_and_format(theta, variable_format)
         
         if self.format_info[variable_format]['mass_format'] == 'm1m2':
@@ -1016,8 +1029,13 @@ class variable_handler(object):
         """
         if isinstance(variable_format, str):
             assert variable_format in self.valid_formats, "Wrong variable format given"
+
+        # print('theta')
+        # print(theta)
+        # #new_theta = theta.numpy()
+        # #print(new_theta)
+        # print('changed')
         
-        theta = np.asarray(theta)
         if theta.ndim == 1:
             theta = theta[None, :]
             squeeze = True

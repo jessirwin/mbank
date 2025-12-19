@@ -361,7 +361,7 @@ class cbc_metric(object):
 		else:
 			ids_ok = range(theta.shape[0])
 			
-		assert theta.shape[-1] == 4
+		assert theta.shape[-1] == 4 #self.D
 		res = np.zeros((theta.shape[0],)) -10000000
 		if np.any(ids_ok):
 			#res[ids_ok] = 0.5*np.log(np.abs(theta[ids_ok,0]**(-8./3.) * theta[ids_ok,1]**(4) * theta[ids_ok,2]**(2)*np.abs(theta[ids_ok,3])**(0.2)))
@@ -1824,12 +1824,13 @@ class cbc_metric(object):
 def test_metric(theta, boundaries):
 
     #testing function works!!
-    m = cbc_metric('m1m2_nonspinning_l1l2', PSD = load_PSD('/home/jessica.irwin/test-banks/banks_mbank/bns_bank/aligo_O3actual_H1.txt', True, 'H1'), approx = 'IMRPhenomD_NRTidal', f_min = 10, f_max = 1024)
+    m = cbc_metric('Mq_nonspinning_lambdatilde', PSD = load_PSD('/home/jessica.irwin/test-banks/banks_mbank/bns_bank/aligo_O3actual_H1.txt', True, 'H1'), approx = 'IMRPhenomD_NRTidal', f_min = 10, f_max = 1024)
 
-    # need to come back here and investigate this metric test
-    logpdf = m.log_pdf(theta, boundaries)
-    print(np.shape(logpdf))
-    print(logpdf)
+    # # need to come back here and investigate this metric test
+    # print(np.shape(theta))
+    # logpdf = m.log_pdf(theta, boundaries)
+    # #print(np.shape(logpdf))
+    # print(logpdf)
 
     return
 
