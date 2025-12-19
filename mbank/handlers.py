@@ -712,7 +712,7 @@ class variable_handler(object):
 
             #setting the tides
         if self.format_info[variable_format]['tidal_format'] == 'lambdatilde':
-            lambdatilde = theta[:,2]
+            l1, l2 = bilby.gw.conversion.lambda_tilde_to_lambda_1_lambda_2(theta[:,8], theta[:,0], theta[:,1])
 
             #dealing with angles and eccentricity (tricky!!)
         assign_var =  [self.format_info[variable_format]['e'], self.format_info[variable_format]['meanano'],
@@ -740,7 +740,7 @@ class variable_handler(object):
         s1x, s1y, s1z = set_zero_spin(s1x), set_zero_spin(s1y), set_zero_spin(s1z)
         s2x, s2y, s2z = set_zero_spin(s2x), set_zero_spin(s2y), set_zero_spin(s2z)
         
-        BBH_comps = np.stack([m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, lambdatilde, e, meanano, iota, phi], axis = 1)
+        BBH_comps = np.stack([m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, l1, l2, e, meanano, iota, phi], axis = 1)
         
         if squeeze: BBH_comps = np.squeeze(BBH_comps)
         
