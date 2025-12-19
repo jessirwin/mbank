@@ -405,8 +405,6 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 	sky_locs = inj_dict['sky_loc']
 	
 	old_format = metric_obj.variable_format
-    print(metric_obj.variable_format)
-    print('old format')
 	if metric_obj.variable_format != 'BBH_components':
 		metric_obj.set_variable_format('BBH_components')
 
@@ -421,8 +419,8 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 	injs = inj_dict['theta_inj']
 	templates = bank.BBH_components
 	
-	chirp_injs = metric_obj.var_handler.get_mchirp(injs[:,[0,1]], 'm1m2_nonspinning')
-	chirp_templates = metric_obj.var_handler.get_mchirp(templates[:,[0,1]], 'm1m2_nonspinning')
+	chirp_injs = metric_obj.var_handler.get_mchirp(injs[:,[0,1]], 'm1m2_nonspinning_notides')
+	chirp_templates = metric_obj.var_handler.get_mchirp(templates[:,[0,1]], 'm1m2_nonspinning_notides')
 
 		#Dealing with antenna patterns
 	if sky_locs is not None:
@@ -1643,23 +1641,3 @@ if cache_folder:
 		else:
 			true_match = metric_obj.match(template_, injs[i], symphony = symphony_match, overlap = False)
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
