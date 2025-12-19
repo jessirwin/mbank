@@ -22,7 +22,7 @@ flow = STD_GW_Flow.load_flow(flow_path)
 # open the bank
 metric = cbc_metric(variable_format,
                     PSD = load_PSD('/home/jessica.irwin/test-banks/banks_mbank/bns_bank/aligo_O3actual_H1.txt', True, 
-                    'H1', df = 0.5), approx = 'IMRPhenomD', 
+                    'H1', df = 0.5), approx = 'IMRPhenomD_NRTidal', 
                     f_min = 10, f_max = 1024)
 
 #############
@@ -49,7 +49,6 @@ print('computing injections')
 # compute match between bank and injections
 inj_stat_dict = compute_injections_match(stat_dict, bank,
 	metric_obj = metric, mchirp_window = 0.1, symphony_match = True)
-exit(0)
 
 # save injections in dictionary (not sure if needed)
 print('saving injections')
