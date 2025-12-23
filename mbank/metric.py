@@ -554,30 +554,34 @@ class cbc_metric(object):
 			#generating the WF
 		if not lalsim.SimInspiralImplementedFDApproximants(lal_approx):
 			raise RuntimeError("Approximant {} is TD: only FD approximants are supported".format(approx)) #must be FD approximant
-		m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, lambdatilde, e, meanano, iota, phi = self.var_handler.get_BBH_components(theta, self.variable_format).T
+		m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, l1, l2, e, meanano, iota, phi = self.var_handler.get_BBH_components(theta, self.variable_format).T
 		#print("mbank pars - {}: ".format(self.variable_format),m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, iota, phi, e, meanano) #DEBUG
 		#warnings.warn("Set non-zero spins!"); s1z = s1z + 0.4; s2z = s2z -0.7
-
-        # need to change the approximant to allow for tides 
+    
         if self.variable_format[variable_format]['tidal_format'] == 'lambdatilde':
-            #TODO: check that phi has an effect here!!
     		try:
-    			hptilde, hctilde = bilby.gw.source.lal_binary_neutron_star(m1*lalsim.lal.MSUN_SI,
-                            m2*lalsim.lal.MSUN_SI,
-                            float(s1x), float(s1y), float(s1z),
-                            float(s2x), float(s2y), float(s2z),
-                            lambdatilde,
-                            1e6*lalsim.lal.PC_SI,
-                            iota, phi, 0., #inclination, phi0, longAscNodes
-                            e, meanano, # eccentricity, meanPerAno
-                            df,
-                            self.f_min, #flow
-                            self.f_max, #fhigh
-                            self.f_min, #fref
-                            lal.CreateDict(),
-                            lal_approx)
+    			hptilde, hctilde = bilby.gw.source.lal_binary_neutron_star(
+                    np.linspace(self.f_min, self.f_max, df),
+                    m1*lalsim.lal.MSUN_SI,
+                    m2*lalsim.lal.MSUN_SI,
+                    1e6*lalsim.lal.PC_SI, # luminosity distance
+                    float(s1x), float(s1y), float(s1z),
+                    float(s2x), float(s2y), float(s2z),
+                    iota, phi, 
+                    l1, l2,
+                    # 0., #inclination, phi0, longAscNodes
+                    # e, meanano, # eccentricity, meanPerAno
+                    waveform_arguments = dict(
+                        #df,
+                        minimum_frequency = self.f_min, #flow
+                        maximum_frequency = self.f_max, #fhigh
+                        reference_frequency = self.f_min, #fref
+                        #lal.CreateDict(),
+                        waveform_approximant = lal_approx
+                    )
+                )
     		except RuntimeError:
-    			msg = "Failed to call lal waveform with parameters: ({} {} {} {} {} {} {} {} {} {} {} {} {})".format(m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, lambdatilde, iota, phi, e, meanano)
+    			msg = "Failed to call lal waveform with parameters: ({} {} {} {} {} {} {} {} {} {} {} {} {} {})".format(m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, l1, l2, iota, phi, e, meanano)
     			raise ValueError(msg)
     		#f_grid = np.linspace(0., self.f_max, len(hptilde.data.data))
 
@@ -586,19 +590,20 @@ class cbc_metric(object):
     		#TODO: check that phi has an effect here!!
     		try:
     			hptilde, hctilde = lalsim.SimInspiralChooseFDWaveform(m1*lalsim.lal.MSUN_SI,
-                            m2*lalsim.lal.MSUN_SI,
-                            float(s1x), float(s1y), float(s1z),
-                            float(s2x), float(s2y), float(s2z),
-                            lambdatilde,
-                            1e6*lalsim.lal.PC_SI,
-                            iota, phi, 0., #inclination, phi0, longAscNodes
-                            e, meanano, # eccentricity, meanPerAno
-                            df,
-                            self.f_min, #flow
-                            self.f_max, #fhigh
-                            self.f_min, #fref
-                            lal.CreateDict(),
-                            lal_approx)
+                    m2*lalsim.lal.MSUN_SI,
+                    float(s1x), float(s1y), float(s1z),
+                    float(s2x), float(s2y), float(s2z),
+                    lambdatilde,
+                    1e6*lalsim.lal.PC_SI,
+                    iota, phi, 0., #inclination, phi0, longAscNodes
+                    e, meanano, # eccentricity, meanPerAno
+                    df,
+                    self.f_min, #flow
+                    self.f_max, #fhigh
+                    self.f_min, #fref
+                    lal.CreateDict(),
+                    lal_approx
+                )
     		except RuntimeError:
     			msg = "Failed to call lal waveform with parameters: ({} {} {} {} {} {} {} {} {} {} {} {} {})".format(m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, lambdatilde, iota, phi, e, meanano)
     			raise ValueError(msg)
