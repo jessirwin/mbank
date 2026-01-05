@@ -26,6 +26,8 @@ from ligo.lw import table as lw_table
 from ligo.lw import lsctables
 from ligo.lw.utils import process as ligolw_process
 
+import bilby
+
 import lal 
 import lalsimulation as lalsim
 

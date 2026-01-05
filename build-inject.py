@@ -1,7 +1,7 @@
 from mbank.handlers import variable_handler
 from mbank.metric import cbc_metric
 from mbank.bank import cbc_bank
-from mbank.utils import compute_injections_match, get_random_sky_loc, initialize_inj_stat_dict
+from mbank.utils import comzpute_injections_match, get_random_sky_loc, initialize_inj_stat_dict
 from mbank.utils import load_PSD, plot_tiles_templates, compute_injections_match, save_inj_stat_dict, plot_tiles_templates, plot_match_histogram
 from mbank.flow import STD_GW_Flow
 import numpy as np

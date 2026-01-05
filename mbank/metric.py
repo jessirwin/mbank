@@ -551,13 +551,13 @@ class cbc_metric(object):
 		except RuntimeError:
 			raise RuntimeError("Given approximant not supported by lal")
 
-			#generating the WF
+		#generating the WF
 		if not lalsim.SimInspiralImplementedFDApproximants(lal_approx):
 			raise RuntimeError("Approximant {} is TD: only FD approximants are supported".format(approx)) #must be FD approximant
 		m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, l1, l2, e, meanano, iota, phi = self.var_handler.get_BBH_components(theta, self.variable_format).T
 		#print("mbank pars - {}: ".format(self.variable_format),m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, iota, phi, e, meanano) #DEBUG
-		#warnings.warn("Set non-zero spins!"); s1z = s1z + 0.4; s2z = s2z -0.7
-    
+		#warnings.warn("Set non-zero spins!")
+        #; s1z = s1z + 0.4; s2z = s2z -0.7
         if self.variable_format[variable_format]['tidal_format'] == 'lambdatilde':
     		try:
     			hptilde, hctilde = bilby.gw.source.lal_binary_neutron_star(
@@ -584,7 +584,6 @@ class cbc_metric(object):
     			msg = "Failed to call lal waveform with parameters: ({} {} {} {} {} {} {} {} {} {} {} {} {} {})".format(m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, l1, l2, iota, phi, e, meanano)
     			raise ValueError(msg)
     		#f_grid = np.linspace(0., self.f_max, len(hptilde.data.data))
-
         else:
             # then no tides and don't need approx to account for this
     		#TODO: check that phi has an effect here!!
