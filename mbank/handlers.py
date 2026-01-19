@@ -179,8 +179,8 @@ class variable_handler(object):
         
             #Adding format BBH_components
         self.valid_formats.append('BBH_components')
-        self.format_D['BBH_components'] = 13
-        self.format_info['BBH_components'] = {'D':13,
+        self.format_D['BBH_components'] = 14
+        self.format_info['BBH_components'] = {'D':14,
                 'mass_format': 'BBH_components', 'spin_format': 'BBH_components',
                 'tidal_format': 'BBH_components', 'eccentricity_format': 'BBH_components', 
                 'angle_format': 'BBH_components', 'e': True, 'meanano':True,
@@ -453,8 +453,8 @@ class variable_handler(object):
             else: labels.extend(['s1','theta1', 'phi1', 's2', 'theta2', 'phi2'])
 
         if self.format_info[variable_format]['tidal_format'] == 'lambdatilde':
-            if latex: labels = [r'$\Tilde{\Lambda}$']
-            else: labels = ['lambdatilde']
+            if latex: labels.append(r'$\Tilde{\Lambda}$')
+            else: labels.append('lambdatilde')
         elif self.format_info[variable_format]['tidal_format'] == 'notides':
             pass
 
@@ -713,8 +713,8 @@ class variable_handler(object):
             s2z = theta[:,5]*np.cos(theta[:,6])
 
             #setting the tides
-        if self.format_info[variable_format]['tidal_format'] == 'lambdatilde':
-            l1, l2 = bilby.gw.conversion.lambda_tilde_to_lambda_1_lambda_2(theta[:,8], theta[:,0], theta[:,1])
+        if self.format_info[variable_format]['tidal_format'] == 'lambdatilde' and self.format_info[variable_format]['spin_format'] =='nonspinning':
+            l1, l2 = bilby.gw.conversion.lambda_tilde_to_lambda_1_lambda_2(theta[:,2], theta[:,0], theta[:,1])
 
             #dealing with angles and eccentricity (tricky!!)
         assign_var =  [self.format_info[variable_format]['e'], self.format_info[variable_format]['meanano'],
@@ -767,8 +767,6 @@ class variable_handler(object):
             mchirp: :class:`~numpy:numpy.ndarray`
                 Chirp mass of each BBH
         """
-        print('in handlers')
-        print(variable_format)
         theta, squeeze = self._check_theta_and_format(theta, variable_format)
         
         if self.format_info[variable_format]['mass_format'] == 'm1m2':

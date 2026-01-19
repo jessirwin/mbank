@@ -298,6 +298,11 @@ def place_random_flow(minimum_match, flow, metric_obj, n_livepoints, boundaries_
 	livepoints, log_pdf = livepoints.numpy(), log_pdf.numpy()
 	assert sum(boundaries_checker(livepoints))==len(livepoints), "Something messed up with sample_within_boundaries"
 
+	# print(np.shape(livepoints))
+	# print(np.min(livepoints[:,1]))
+	# print(np.max(livepoints[:,1]))
+	# print(livepoints[0])
+
 		#Computing the metric for all the livepoints
 	metric, p = [], []
 	ids_to_remove = [] #Keeps the ids of the livepoints for which the metric computation fails
@@ -384,6 +389,9 @@ def place_random_flow(minimum_match, flow, metric_obj, n_livepoints, boundaries_
 		return N_tmplts
 	
 	new_templates = np.concatenate(new_templates, axis = 0)
+
+	# new templates here are within the bounds of what we would want
+	# this function is fine
 
 	return new_templates
 

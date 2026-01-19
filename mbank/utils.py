@@ -418,7 +418,10 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 		# The format is basically the full 12 dimensional space, with spins in spherical coordinates
 	injs = inj_dict['theta_inj']
 	templates = bank.BBH_components
-	
+
+	# injections match those outside the function up to here. 
+
+	# changed this to include tides
 	chirp_injs = metric_obj.var_handler.get_mchirp(injs[:,[0,1]], 'm1m2_nonspinning_notides')
 	chirp_templates = metric_obj.var_handler.get_mchirp(templates[:,[0,1]], 'm1m2_nonspinning_notides')
 
@@ -459,7 +462,7 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 		# Computing the match between injections and templates
 		
 		#Generating the injected signal
-		
+
 	injs_WFs = metric_obj.get_WF(injs, plus_cross = True)
 	if sky_locs is not None:
 		s_WFs = (injs_WFs[0].T*F_p + injs_WFs[1].T*F_c).T
@@ -494,6 +497,11 @@ def compute_injections_match(inj_dict, bank, metric_obj, mchirp_window = 0.1, sy
 			#print(inj_dict['match'][ids_injs])
 			
 	metric_obj.set_variable_format(old_format)
+
+	# the theta_inj at the bottom here is consistent with the input
+	# print('bottom of utils')
+	# print(inj_dict['theta_inj'][0,:])
+	# print(old_format)
 	
 	return inj_dict
 		
@@ -536,7 +544,8 @@ def initialize_inj_stat_dict(injs, sky_locs = None):
 	"""
 		#Making a copy of the original injs
 	injs = np.array(injs)
-	if injs.shape[1] != 13:
+	# changed this to now account for tides
+	if injs.shape[1] != 14:
 		raise ValueError("Wrong input size for the injections: each injection must have 12 dimensions but {} given".format(injs.shape[1]))
 	if isinstance(sky_locs, (list, np.ndarray)):
 		sky_locs = np.array(sky_locs)
@@ -843,6 +852,8 @@ def plot_tiles_templates(templates, variable_format, tiling = None, injections =
 
 	"""
 	templates = np.asarray(templates)
+
+	# injections here are consistent.
 	
 	var_handler = variable_handler()
 		###
@@ -878,17 +889,24 @@ def plot_tiles_templates(templates, variable_format, tiling = None, injections =
 		if i<j:	axes[i,j].remove()
 
 		#Plot the templates
+	# print(np.shape(templates))
+	# print(var_handler.labels(variable_format, latex = True))
+	
 	for ax_ in combinations(range(templates.shape[1]), 2):
 		currentAxis = axes[ax_[1]-1, ax_[0]]
 		ax_ = list(ax_)
-		
+		# length of list is number of templates
+
 		currentAxis.scatter(templates[ids_,ax_[0]], templates[ids_,ax_[1]], s = size_template, marker = 'o', c= 'b', alpha = 0.3)
+		# this is just labelling the plot
+		# changed latex from true to false to reduce errors for now
+		# need to fix this
 		if ax_[0] == 0:
-			currentAxis.set_ylabel(var_handler.labels(variable_format, latex = True)[ax_[1]], fontsize = fs)
+			currentAxis.set_ylabel(var_handler.labels(variable_format, latex = False)[ax_[1]], fontsize = fs)
 		else:
 			currentAxis.set_yticks([])
 		if ax_[1] == templates.shape[1]-1:
-			currentAxis.set_xlabel(var_handler.labels(variable_format, latex = True)[ax_[0]], fontsize = fs)
+			currentAxis.set_xlabel(var_handler.labels(variable_format, latex = False)[ax_[0]], fontsize = fs)
 		else:
 			currentAxis.set_xticks([])
 		currentAxis.tick_params(axis='x', labelsize=fs)
@@ -911,7 +929,11 @@ def plot_tiles_templates(templates, variable_format, tiling = None, injections =
 		if isinstance(save_folder, str): plt.savefig(save_folder+'tiling{}.png'.format(savetag), transparent = False)
 
 		#Plotting the injections, if it is the case
+	print(np.shape(injections))
+	print(isinstance(injections, np.ndarray))
 	if isinstance(injections, np.ndarray):
+		print('injections present')
+		print('injections shape', np.shape(injections))
 		inj_cmap = 'r' if inj_cmap is None else inj_cmap
 		#plt.suptitle('Templates + tiling of the bank & {} injections'.format(injections.shape[0]), fontsize = fs+10)
 		for ax_ in combinations(range(templates.shape[1]), 2):
@@ -920,7 +942,7 @@ def plot_tiles_templates(templates, variable_format, tiling = None, injections =
 			cbar_vals = currentAxis.scatter(injections[:,ax_[0]], injections[:,ax_[1]],
 				s = 20, marker = 's', c= inj_cmap)
 		if not isinstance(inj_cmap, str):
-			cbar_ax = fig.add_axes([0.88, 0.15, 0.015, 0.7])
+			cbar_ax = fig.add_axes([0.92, 0.15, 0.015, 0.7])
 			cbar_ax.tick_params(labelsize=fs)
 			fig.colorbar(cbar_vals, cax=cbar_ax)
 		if isinstance(save_folder, str): plt.savefig(save_folder+'injections{}.png'.format(savetag), transparent = False)
@@ -947,7 +969,7 @@ def plot_tiles_templates(templates, variable_format, tiling = None, injections =
 	for i, ax_ in enumerate(axes):
 		ax_.hist(templates[:,i], **hist_kwargs)
 		if i==0: ax_.set_ylabel("# templates", fontsize = fs)
-		ax_.set_xlabel(var_handler.labels(variable_format, latex = True)[i], fontsize = fs)
+		ax_.set_xlabel(var_handler.labels(variable_format, latex = False)[i], fontsize = fs)
 		min_, max_ = np.min(templates[:,i]), np.max(templates[:,i])
 		d_ = 0.1*(max_-min_)
 		ax_.set_xlim((min_-d_, max_+d_ ))
