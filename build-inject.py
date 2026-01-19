@@ -1,12 +1,14 @@
 from mbank.handlers import variable_handler
 from mbank.metric import cbc_metric
 from mbank.bank import cbc_bank
-from mbank.utils import comzpute_injections_match, get_random_sky_loc, initialize_inj_stat_dict
+from mbank.utils import compute_injections_match, get_random_sky_loc, initialize_inj_stat_dict
 from mbank.utils import load_PSD, plot_tiles_templates, compute_injections_match, save_inj_stat_dict, plot_tiles_templates, plot_match_histogram
 from mbank.flow import STD_GW_Flow
 import numpy as np
+import corner
 # import mbank.utils
 import h5py
+import matplotlib.pyplot as plt
 
 variable_format = 'Mq_nonspinning_lambdatilde'
 
@@ -39,32 +41,90 @@ metric = cbc_metric(variable_format,
 
 ##############
 # if making injections
-n_injs = 100
+n_injs = int(1e4)
 injs_3D = flow.sample(n_injs)
+
+outfile = './build-bank/%dinjs/' % n_injs
+
+import os
+if not os.path.exists(outfile):
+    os.makedirs(outfile)
+
+##############
+# plot injections
+# # val_corner = corner.corner(validation_ll, color = 'indigo', plot_contours = False, plot_DataPoints = True)
+# corner.corner(np.array(injs_3D.detach().cpu().numpy()), color = 'red', plot_contours = False, plot_DataPoints = True) # fig = val_corner,
+# plt.savefig('./testing/injs_3D.png')
+# plt.close()
+# exit(0)
+##############
+
+# include other parameters
 injs_12D = bank.var_handler.get_BBH_components(injs_3D, variable_format)
+subset_inj_12D = np.array([injs_12D[:,0], injs_12D[:,1], injs_12D[:,8], injs_12D[:,9]])
+
+# print(np.shape(injs_12D))
+# print(injs_12D[0,:])
+
+##############
+# plotting mass and tidal deformability components
+# corner.corner(subset_inj_12D.T, color = 'red', plot_contours = False, plot_DataPoints = True) # fig = val_corner,
+# plt.savefig('./testing/injs_m1m2l1l2.png')
+# plt.close()
+# exit(0)
+
+# plotting tidal parameters only (components)
+# these are of the correct order of magnitude
+# plt.scatter(subset_inj_12D[2,:], subset_inj_12D[3,:])
+# plt.xscale('log')
+# plt.yscale('log')
+# plt.savefig('./testing/injs_l1l2.png')
+# plt.close()
+# exit(0)
+##############
+
+# this is not 12D but actually 14D
+# m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, l1, l2, e, meanano, iota, phi
 sky_locs = np.column_stack(get_random_sky_loc(n_injs))
+# makes dictionary
 stat_dict = initialize_inj_stat_dict(injs_12D, sky_locs = sky_locs)
+# stat_dict matches injs_12D for tidal parameters.
+# seems fine up to here. 
 
 print('computing injections')
+# this takes time!
 # compute match between bank and injections
 inj_stat_dict = compute_injections_match(stat_dict, bank,
 	metric_obj = metric, mchirp_window = 0.1, symphony_match = True)
 
+# this is also consistent with input
+# print('inj stat dict')
+
 # save injections in dictionary (not sure if needed)
 print('saving injections')
-save_inj_stat_dict('/build-bank/injections.json', inj_stat_dict)
+#save_inj_stat_dict('./build-bank/injections.json', inj_stat_dict)
 
 
 print('making plots')
 # plot the results
 # maybe injs here should just be the masses, might be too big an array
+
+# investigating here.
+# print('bank.templates')
+# print(np.shape(bank.templates))
+# corner.corner(bank.templates, color = 'steelblue', plot_contours = False, plot_DataPoints = True)
+# plt.savefig('./testing/bank.png')
+# plt.close()
+
+print('percentage injections >0.97 match', (np.sum(inj_stat_dict['match']>0.97) / n_injs)*100)
+
 plot_tiles_templates(bank.templates, variable_format,
-	injections = injs, inj_cmap = stat_dict['match'], show = True, save_folder='./build-bank/')
+	injections = injs_3D.cpu().detach().numpy(), inj_cmap = inj_stat_dict['match'], show = True, save_folder=outfile, savetag = 'new')
 
 # make histogram of matches
 print('plotting histogram')
 matches = inj_stat_dict['match']
-plot_match_histogram(matches = matches, mm = 0.97, bank_name = 'tidalbank', save_folder = './build-bank/')
+plot_match_histogram(matches = matches, mm = 0.97, bank_name = 'tidalbank \n %.1f percent injections above 0.97 match' % ((np.sum(inj_stat_dict['match']>0.97) / n_injs)*100), save_folder = outfile)
 
 print('injection study done')
 

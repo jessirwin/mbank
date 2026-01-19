@@ -18,7 +18,7 @@ variable_format = 'Mq_nonspinning_lambdatilde'
 dims = 3 # dimensions of the parameter space, m1m2l1l2
 
 # need to reformat this to allow for different parameterisations of tides
-boundaries = get_boundaries_from_ranges(variable_format, (1,6), (0.333,1))
+boundaries = get_boundaries_from_ranges(variable_format, (2,6), (1,3))
 
 print('variables and boundaries set')
 
@@ -52,10 +52,10 @@ validation_data = np.random.uniform(*boundaries, (300, dims))
 ###################
 # plot training and validation data
 
-# val_corner = corner.corner(validation_data, color = 'indigo', plot_contours = False, plot_DataPoints = True)
-# corner.corner(train_data, fig = val_corner, color = 'steelblue', plot_contours = False, plot_DataPoints = True)
-# plt.savefig('./testing/train_val_data.png')
-# plt.close()
+val_corner = corner.corner(validation_data, color = 'indigo', plot_contours = False, plot_DataPoints = True)
+corner.corner(train_data, fig = val_corner, color = 'steelblue', plot_contours = False, plot_DataPoints = True)
+plt.savefig('./testing/train_val_data.png')
+plt.close()
 
 ###################
 # from mbank.metric import test_metric
@@ -63,7 +63,7 @@ validation_data = np.random.uniform(*boundaries, (300, dims))
 # # testing different parts of the function by commenting out other bits
 # exit(0)
 
-# make training, validation data
+# training and validation weights
 train_ll = np.array([metric_.log_pdf(s, boundaries) for s in tqdm(train_data)])
 validation_ll = np.array([metric_.log_pdf(s, boundaries) for s in tqdm(validation_data)])
 
@@ -99,12 +99,42 @@ print('flow training successful')
 
 from mbank.placement import place_random_flow
 
+# this should place templates within our boundaries
+# either boundaries are translated incorrectly or bank is placing outwith boundaries
 new_templates = place_random_flow(0.97, flow, metric_,
 	n_livepoints = 500, covering_fraction = 0.9,
 	boundaries_checker = boundaries,
 	metric_type = 'symphony', verbose = True)
+
+# new templates are correct here!!! so need to figure out what happens to them after this
+
 bank = cbc_bank(variable_format)
+
+# q changes here !!!!
+# fix this
 bank.add_templates(new_templates)
+
+# print('3')
+# print(new_templates[0])
+# print(np.min(new_templates[:,1]))
+# print(np.max(new_templates[:,1]))
+# # exit(0)
+
+# this places the same bank as below
+# which is outwith the q boundary
+# so find the inconsistency somewhere in here
+# corner.corner(new_templates, color = 'steelblue', plot_contours = False, plot_DataPoints = True)
+# plt.savefig('./testing/new_templates.png')
+# plt.close()
+# exit(0)
+
+# this matches the bank that is plotted in the build-inject script
+# i.e. incorrect bank in q
+# corner.corner(bank.templates, color = 'steelblue', plot_contours = False, plot_DataPoints = True)
+# plt.savefig('./testing/bank2.png')
+# plt.close()
+# exit(0)
+
 
 print('building done; now saving')
 
