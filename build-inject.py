@@ -2,21 +2,27 @@ from mbank.handlers import variable_handler
 from mbank.metric import cbc_metric
 from mbank.bank import cbc_bank
 from mbank.utils import compute_injections_match, get_random_sky_loc, initialize_inj_stat_dict
-from mbank.utils import load_PSD, plot_tiles_templates, compute_injections_match, save_inj_stat_dict, plot_tiles_templates, plot_match_histogram
+from mbank.utils import load_PSD, plot_tiles_templates, ray_compute_injections_match, compute_injections_match, save_inj_stat_dict, plot_tiles_templates, plot_match_histogram
 from mbank.flow import STD_GW_Flow
 import numpy as np
 import corner
+import pickle
+import time
+import torch
 # import mbank.utils
 import h5py
 import matplotlib.pyplot as plt
 
-variable_format = 'Mq_nonspinning_lambdatilde'
+variable_format = 'Mq_nonspinning_notides'
 
-bank_path = '/home/jessica.irwin/mbank/build-bank/bank.dat'
-flow_path = '/home/jessica.irwin/mbank/build-bank/flow.zip'
+# bank_path = '/home/jessica.irwin/mbank/build-bank/bank.dat'
+bank_path = '/home/jessica.irwin/test-banks/banks_mbank/bns_bank_nospin/bns_bank_nospin/bns_bank_nospin.dat'
+# flow_path = '/home/jessica.irwin/mbank/build-bank/flow.zip'
+flow_path = '/home/jessica.irwin/test-banks/banks_mbank/bns_bank_nospin/bns_bank_nospin/flow_bns_nospin.zip'
 
 print('open bank in compatible  format')
 bank = cbc_bank(variable_format, filename = bank_path)
+print('number of templates', len(bank.templates))
 
 print('open flow')
 flow = STD_GW_Flow.load_flow(flow_path)
@@ -39,12 +45,50 @@ metric = cbc_metric(variable_format,
 
 # print('injections found')
 
+#############
+# # Using EOS-informed injections, pickle
+# injection_data_path = '/home/jessica.irwin/eos-data-neural-network/mbank-data/data/massfixed_lambdastiff/1p4mass_lambdastiff_conv.p'
+injection_data_path = '/home/jessica.irwin/eos-data-neural-network/mbank-data/data/random_subset_3103.p'
+
+with open(injection_data_path, 'rb') as fp:
+    Mqlambdatilde = pickle.load(fp)
+    Mqlambdatilde = np.array(Mqlambdatilde, dtype = object)
+
+n_injs = len(Mqlambdatilde.T)
+
+totalM = torch.tensor(np.array(Mqlambdatilde[0], dtype = float))
+integer_q = torch.tensor(1/np.array(Mqlambdatilde[1], dtype = float))
+lambdatilde = torch.tensor(np.array(Mqlambdatilde[2], dtype = float))
+
+# need to reconstruct the full array of injections that we want to plot
+# where q is fraction not integer
+# concatenate, total mass fraction q and lambdatilde
+M_integerq = torch.cat((totalM, integer_q))
+Mq = torch.cat((totalM, torch.tensor(np.array(Mqlambdatilde[1], dtype = float))))
+
+# reshape the array to be N parameters x N injections
+M_integerq = torch.reshape(M_integerq, (2,n_injs))
+Mq = torch.reshape(Mq, (2,n_injs))
+
+# take transpose
+M_integerqT = torch.transpose(M_integerq, 0, 1)
+MqT = torch.transpose(Mq, 0, 1)
+
+# make sky locations
+n_injs = len(MqT)
+print('number of injections', n_injs)
+skylocs = np.column_stack(get_random_sky_loc(n_injs))
+
+print('injections found')
+
 ##############
 # if making injections
-n_injs = int(1e4)
-injs_3D = flow.sample(n_injs)
+injs_3D = torch.tensor(np.array(MqT, dtype = float))
+# injs_3D = flow.sample(n_injs)
+# np.save('/home/jessica.irwin/test-banks/banks_pycbc/brute_tides/test/plot_injections.npy', injs_3D.cpu().detach().numpy())
+# exit(0)
 
-outfile = './build-bank/%dinjs/' % n_injs
+outfile = './build-bank/test_random_%dinjs/' % n_injs
 
 import os
 if not os.path.exists(outfile):
@@ -60,8 +104,8 @@ if not os.path.exists(outfile):
 ##############
 
 # include other parameters
-injs_12D = bank.var_handler.get_BBH_components(injs_3D, variable_format)
-subset_inj_12D = np.array([injs_12D[:,0], injs_12D[:,1], injs_12D[:,8], injs_12D[:,9]])
+injs_12D = bank.var_handler.get_BBH_components(injs_3D, variable_format)# 
+# subset_inj_12D = np.array([injs_12D[:,0], injs_12D[:,1], injs_12D[:,8], injs_12D[:,9]])
 
 # print(np.shape(injs_12D))
 # print(injs_12D[0,:])
@@ -88,22 +132,24 @@ subset_inj_12D = np.array([injs_12D[:,0], injs_12D[:,1], injs_12D[:,8], injs_12D
 sky_locs = np.column_stack(get_random_sky_loc(n_injs))
 # makes dictionary
 stat_dict = initialize_inj_stat_dict(injs_12D, sky_locs = sky_locs)
+print(np.shape(injs_12D))
 # stat_dict matches injs_12D for tidal parameters.
 # seems fine up to here. 
 
 print('computing injections')
 # this takes time!
 # compute match between bank and injections
-inj_stat_dict = compute_injections_match(stat_dict, bank,
-	metric_obj = metric, mchirp_window = 0.1, symphony_match = True)
+start_time = time.time()
+inj_stat_dict = ray_compute_injections_match(stat_dict, bank,
+	metric_obj = metric, mchirp_window = 0.1, symphony_match = True, max_jobs = 8, verbose = False)
+print('compute match time', time.time() - start_time)
 
 # this is also consistent with input
 # print('inj stat dict')
 
 # save injections in dictionary (not sure if needed)
 print('saving injections')
-#save_inj_stat_dict('./build-bank/injections.json', inj_stat_dict)
-
+save_inj_stat_dict(outfile + 'injections.json', inj_stat_dict)
 
 print('making plots')
 # plot the results
@@ -119,7 +165,7 @@ print('making plots')
 print('percentage injections >0.97 match', (np.sum(inj_stat_dict['match']>0.97) / n_injs)*100)
 
 plot_tiles_templates(bank.templates, variable_format,
-	injections = injs_3D.cpu().detach().numpy(), inj_cmap = inj_stat_dict['match'], show = True, save_folder=outfile, savetag = 'new')
+	injections = M_integerqT.cpu().detach().numpy(), inj_cmap = inj_stat_dict['match'], show = True, save_folder=outfile, savetag = 'new')
 
 # make histogram of matches
 print('plotting histogram')
