@@ -1,0 +1,427 @@
+000 (53395070.000.000) 2026-03-09 09:37:23 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7373_d7dd>
+...
+001 (53395070.000.000) 2026-03-09 09:39:04 Job executing on host: <10.14.10.38:9618?addrs=10.14.10.38-9618&alias=node2288.cluster.ldas.cit&noUDP&sock=startd_7790_dedb>
+	SlotName: slot1_22@node2288.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_2105775"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+006 (53395070.000.000) 2026-03-09 09:39:04 Image size of job updated: 17500
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+005 (53395070.000.000) 2026-03-09 09:39:05 Job terminated.
+	(1) Normal termination (return value 2)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :        0    20480     20480 
+	   TimeExecute (s)      :        0                    
+	   TimeSlotBusy (s)     :        0                    
+...
+000 (53395356.000.000) 2026-03-09 09:40:46 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7373_d7dd>
+...
+009 (53395356.000.000) 2026-03-09 09:41:08 Job was aborted.
+	via condor_rm (by user jessica.irwin)
+...
+000 (53395397.000.000) 2026-03-09 09:41:18 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7373_d7dd>
+...
+001 (53395397.000.000) 2026-03-09 09:42:05 Job executing on host: <10.14.10.135:9618?addrs=10.14.10.135-9618&alias=node2385.cluster.ldas.cit&noUDP&sock=startd_2871_d87e>
+	SlotName: slot1_9@node2385.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_2291763"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+006 (53395397.000.000) 2026-03-09 09:42:14 Image size of job updated: 2518692
+	2460  -  MemoryUsage of job (MB)
+	2518692  -  ResidentSetSize of job (KB)
+...
+006 (53395397.000.000) 2026-03-09 09:43:07 Image size of job updated: 20927580
+	2463  -  MemoryUsage of job (MB)
+	2521636  -  ResidentSetSize of job (KB)
+...
+021 (53395397.000.000) 2026-03-09 09:43:07 Error from starter on slot1_9@node2385.cluster.ldas.cit:
+	Job has gone over cgroup memory limit of 20480 megabytes. Last measured usage: 20437 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+004 (53395397.000.000) 2026-03-09 09:43:07 Job was evicted. Code 34 Subcode 102
+	(0) CPU times
+		Usr 0 00:00:32, Sys 0 00:00:22  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_9@node2385.cluster.ldas.cit: Job has gone over cgroup memory limit of 20480 megabytes. Last measured usage: 20437 megabytes.  Consider resubmitting with a higher request_memory.
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     2463    20480     20480 
+	   TimeSlotBusy (s)     :       62                    
+...
+012 (53395397.000.000) 2026-03-09 09:43:07 Job was held.
+	Error from slot1_9@node2385.cluster.ldas.cit: Job has gone over cgroup memory limit of 20480 megabytes. Last measured usage: 20437 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+013 (53395397.000.000) 2026-03-09 09:51:41 Job was released.
+	via condor_release (by user jessica.irwin)
+...
+001 (53395397.000.000) 2026-03-09 09:52:41 Job executing on host: <10.14.5.152:9618?addrs=10.14.5.152-9618&alias=node1152.cluster.ldas.cit&noUDP&sock=startd_2198_3941>
+	SlotName: slot1_7@node1152.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_4109848"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 40
+...
+021 (53395397.000.000) 2026-03-09 09:53:25 Error from starter on slot1_7@node1152.cluster.ldas.cit:
+	Job has gone over cgroup memory limit of 40 megabytes. Last measured usage: 39 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+004 (53395397.000.000) 2026-03-09 09:53:25 Job was evicted. Code 34 Subcode 102
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:04  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_7@node1152.cluster.ldas.cit: Job has gone over cgroup memory limit of 40 megabytes. Last measured usage: 39 megabytes.  Consider resubmitting with a higher request_memory.
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     2686       40        40 
+	   TimeSlotBusy (s)     :       45                    
+...
+012 (53395397.000.000) 2026-03-09 09:53:25 Job was held.
+	Error from slot1_7@node1152.cluster.ldas.cit: Job has gone over cgroup memory limit of 40 megabytes. Last measured usage: 39 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+013 (53395397.000.000) 2026-03-09 09:54:16 Job was released.
+	via condor_release (by user jessica.irwin)
+...
+001 (53395397.000.000) 2026-03-09 09:55:22 Job executing on host: <10.14.3.241:9618?addrs=10.14.3.241-9618&alias=node741.cluster.ldas.cit&noUDP&sock=startd_2601_a5ec>
+	SlotName: slot1_1@node741.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_2205640"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 40064
+...
+006 (53395397.000.000) 2026-03-09 09:58:11 Image size of job updated: 40758280
+	2686  -  MemoryUsage of job (MB)
+	2750000  -  ResidentSetSize of job (KB)
+...
+021 (53395397.000.000) 2026-03-09 09:58:11 Error from starter on slot1_1@node741.cluster.ldas.cit:
+	Job has gone over cgroup memory limit of 40064 megabytes. Last measured usage: 39803 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+004 (53395397.000.000) 2026-03-09 09:58:11 Job was evicted. Code 34 Subcode 102
+	(0) CPU times
+		Usr 0 00:02:23, Sys 0 00:00:22  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_1@node741.cluster.ldas.cit: Job has gone over cgroup memory limit of 40064 megabytes. Last measured usage: 39803 megabytes.  Consider resubmitting with a higher request_memory.
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     2686    40000     40064 
+	   TimeSlotBusy (s)     :      169                    
+...
+012 (53395397.000.000) 2026-03-09 09:58:11 Job was held.
+	Error from slot1_1@node741.cluster.ldas.cit: Job has gone over cgroup memory limit of 40064 megabytes. Last measured usage: 39803 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+009 (53395397.000.000) 2026-03-09 10:00:38 Job was aborted.
+	via condor_rm (by user jessica.irwin)
+...
+000 (53461824.000.000) 2026-03-10 09:08:51 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7367_ba4b>
+...
+001 (53461824.000.000) 2026-03-10 09:15:11 Job executing on host: <10.14.10.69:9618?addrs=10.14.10.69-9618&alias=node2319.cluster.ldas.cit&noUDP&sock=startd_2881_b470>
+	SlotName: slot1_12@node2319.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3402794"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 40960
+...
+006 (53461824.000.000) 2026-03-10 09:15:19 Image size of job updated: 180092
+	176  -  MemoryUsage of job (MB)
+	180092  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:20:19 Image size of job updated: 25463432
+	24027  -  MemoryUsage of job (MB)
+	24603296  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:25:20 Image size of job updated: 25487164
+	24027  -  MemoryUsage of job (MB)
+	24603296  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:35:21 Image size of job updated: 25487836
+	24027  -  MemoryUsage of job (MB)
+	24603296  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:40:21 Image size of job updated: 25487836
+	24029  -  MemoryUsage of job (MB)
+	24605472  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:45:22 Image size of job updated: 25532340
+	24033  -  MemoryUsage of job (MB)
+	24609088  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:50:22 Image size of job updated: 25538712
+	24037  -  MemoryUsage of job (MB)
+	24613220  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 09:55:22 Image size of job updated: 25538712
+	24759  -  MemoryUsage of job (MB)
+	25352936  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 10:00:23 Image size of job updated: 25538712
+	24763  -  MemoryUsage of job (MB)
+	25357032  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 10:05:24 Image size of job updated: 25581552
+	24763  -  MemoryUsage of job (MB)
+	25357032  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 10:15:25 Image size of job updated: 25581552
+	24847  -  MemoryUsage of job (MB)
+	25442676  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 10:25:26 Image size of job updated: 25597012
+	24847  -  MemoryUsage of job (MB)
+	25442676  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 10:35:27 Image size of job updated: 25597012
+	24947  -  MemoryUsage of job (MB)
+	25545324  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 10:40:27 Image size of job updated: 25597012
+	24953  -  MemoryUsage of job (MB)
+	25551840  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 18:46:14 Image size of job updated: 25601840
+	24953  -  MemoryUsage of job (MB)
+	25551840  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-10 20:11:23 Image size of job updated: 25622716
+	24953  -  MemoryUsage of job (MB)
+	25551840  -  ResidentSetSize of job (KB)
+...
+006 (53461824.000.000) 2026-03-11 07:02:27 Image size of job updated: 25622716
+	24957  -  MemoryUsage of job (MB)
+	25555712  -  ResidentSetSize of job (KB)
+...
+004 (53461824.000.000) 2026-03-11 09:24:54 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 0 20:41:08, Sys 0 03:05:27  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    24957    40960     40960 
+	   TimeExecute (s)      :    86983                    
+	   TimeSlotBusy (s)     :    86983                    
+...
+001 (53461824.000.000) 2026-03-11 09:28:41 Job executing on host: <10.14.3.247:9618?addrs=10.14.3.247-9618&alias=node747.cluster.ldas.cit&noUDP&sock=startd_2479_f75e>
+	SlotName: slot1_2@node747.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_1526586"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 40960
+...
+006 (53461824.000.000) 2026-03-11 09:33:01 Image size of job updated: 41858180
+	26856  -  MemoryUsage of job (MB)
+	27500000  -  ResidentSetSize of job (KB)
+...
+021 (53461824.000.000) 2026-03-11 09:33:01 Error from starter on slot1_2@node747.cluster.ldas.cit:
+	Job has gone over cgroup memory limit of 40960 megabytes. Last measured usage: 40877 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+004 (53461824.000.000) 2026-03-11 09:33:01 Job was evicted. Code 34 Subcode 102
+	(0) CPU times
+		Usr 0 00:03:33, Sys 0 00:00:35  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Error from slot1_2@node747.cluster.ldas.cit: Job has gone over cgroup memory limit of 40960 megabytes. Last measured usage: 40877 megabytes.  Consider resubmitting with a higher request_memory.
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    26856    40960     40960 
+	   TimeExecute (s)      :    86983                    
+	   TimeSlotBusy (s)     :      264                    
+...
+012 (53461824.000.000) 2026-03-11 09:33:01 Job was held.
+	Error from slot1_2@node747.cluster.ldas.cit: Job has gone over cgroup memory limit of 40960 megabytes. Last measured usage: 40877 megabytes.  Consider resubmitting with a higher request_memory.
+	Code 34 Subcode 102
+...
+009 (53461824.000.000) 2026-03-13 04:10:36 Job was aborted.
+	via condor_rm (by user jessica.irwin)
+...
+000 (53652665.000.000) 2026-03-13 04:11:45 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7367_ba4b>
+...
+001 (53652665.000.000) 2026-03-13 04:15:48 Job executing on host: <10.14.4.42:9618?addrs=10.14.4.42-9618&alias=node792.cluster.ldas.cit&noUDP&sock=startd_2703_9c95>
+	SlotName: slot1_6@node792.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3306841"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 51200
+...
+006 (53652665.000.000) 2026-03-13 04:15:56 Image size of job updated: 44760
+	44  -  MemoryUsage of job (MB)
+	44760  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 04:20:56 Image size of job updated: 25471192
+	24002  -  MemoryUsage of job (MB)
+	24577152  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 04:25:57 Image size of job updated: 25471192
+	24872  -  MemoryUsage of job (MB)
+	25468084  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 04:40:59 Image size of job updated: 25497564
+	24872  -  MemoryUsage of job (MB)
+	25468084  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 04:51:00 Image size of job updated: 25500232
+	24872  -  MemoryUsage of job (MB)
+	25468084  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 04:56:01 Image size of job updated: 25538628
+	24872  -  MemoryUsage of job (MB)
+	25468084  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 05:01:01 Image size of job updated: 25595864
+	24872  -  MemoryUsage of job (MB)
+	25468084  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 07:01:12 Image size of job updated: 25627388
+	24872  -  MemoryUsage of job (MB)
+	25468084  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 08:41:23 Image size of job updated: 25627388
+	24876  -  MemoryUsage of job (MB)
+	25472556  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 12:51:48 Image size of job updated: 25630332
+	24876  -  MemoryUsage of job (MB)
+	25472556  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 13:31:51 Image size of job updated: 25630332
+	24883  -  MemoryUsage of job (MB)
+	25479964  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 13:36:52 Image size of job updated: 25630332
+	24885  -  MemoryUsage of job (MB)
+	25482012  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 15:42:05 Image size of job updated: 25630332
+	24956  -  MemoryUsage of job (MB)
+	25554872  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 17:37:16 Image size of job updated: 25630332
+	24971  -  MemoryUsage of job (MB)
+	25569760  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-13 17:42:16 Image size of job updated: 25630332
+	24973  -  MemoryUsage of job (MB)
+	25571808  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-14 00:43:00 Image size of job updated: 25636088
+	24973  -  MemoryUsage of job (MB)
+	25571808  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-14 04:58:28 Image size of job updated: 25636088
+	24995  -  MemoryUsage of job (MB)
+	25594032  -  ResidentSetSize of job (KB)
+...
+006 (53652665.000.000) 2026-03-14 05:03:28 Image size of job updated: 25636088
+	25017  -  MemoryUsage of job (MB)
+	25616560  -  ResidentSetSize of job (KB)
+...
+004 (53652665.000.000) 2026-03-14 05:11:47 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 0 20:58:20, Sys 0 03:43:29  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    25017    51200     51200 
+	   TimeExecute (s)      :    89759                    
+	   TimeSlotBusy (s)     :    89761                    
+...
+001 (53652665.000.000) 2026-03-14 05:12:35 Job executing on host: <10.14.10.62:9618?addrs=10.14.10.62-9618&alias=node2312.cluster.ldas.cit&noUDP&sock=startd_2864_0b54>
+	SlotName: slot1_10@node2312.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3084387"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 51200
+...
+004 (53652665.000.000) 2026-03-15 06:48:24 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 0 21:42:00, Sys 0 03:39:32  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    26856    51200     51200 
+	   TimeExecute (s)      :    92149                    
+	   TimeSlotBusy (s)     :    92149                    
+...
+001 (53652665.000.000) 2026-03-15 06:53:26 Job executing on host: <10.14.9.157:9618?addrs=10.14.9.157-9618&alias=node2157.cluster.ldas.cit&noUDP&sock=startd_3980_8705>
+	SlotName: slot1_9@node2157.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_1101738"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 51200
+...
+004 (53652665.000.000) 2026-03-16 02:19:50 Job was evicted. Code 1023 Subcode 0
+	(0) CPU times
+		Usr 0 16:29:49, Sys 0 02:52:41  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: via condor_rm (by user jessica.irwin)
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    26856    51200     51200 
+	   TimeExecute (s)      :    69984                    
+	   TimeSlotBusy (s)     :    69984                    
+...
+009 (53652665.000.000) 2026-03-16 02:19:50 Job was aborted.
+	via condor_rm (by user jessica.irwin)
+...

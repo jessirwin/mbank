@@ -1,0 +1,183 @@
+000 (51642777.000.000) 2026-01-15 02:28:19 Job submitted from host: <10.14.0.73:9618?addrs=10.14.0.73-9618&alias=ldas-pcdev13.ligo.caltech.edu&noUDP&sock=schedd_3994_2159>
+...
+001 (51642777.000.000) 2026-01-15 02:29:16 Job executing on host: <10.14.9.144:9618?addrs=10.14.9.144-9618&alias=node2144.cluster.ldas.cit&noUDP&sock=startd_2410610_8854>
+	SlotName: slot1_6@node2144.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_405051"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+006 (51642777.000.000) 2026-01-15 02:29:24 Image size of job updated: 72788
+	72  -  MemoryUsage of job (MB)
+	72788  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 02:34:24 Image size of job updated: 9542020
+	9270  -  MemoryUsage of job (MB)
+	9491652  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 02:39:25 Image size of job updated: 9542020
+	9271  -  MemoryUsage of job (MB)
+	9492568  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 03:19:29 Image size of job updated: 9560728
+	9271  -  MemoryUsage of job (MB)
+	9492568  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 03:24:30 Image size of job updated: 9618912
+	9271  -  MemoryUsage of job (MB)
+	9492568  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 04:19:36 Image size of job updated: 9618912
+	9301  -  MemoryUsage of job (MB)
+	9523996  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 04:24:36 Image size of job updated: 9618912
+	9305  -  MemoryUsage of job (MB)
+	9528092  -  ResidentSetSize of job (KB)
+...
+006 (51642777.000.000) 2026-01-15 20:36:13 Image size of job updated: 9619524
+	9305  -  MemoryUsage of job (MB)
+	9528092  -  ResidentSetSize of job (KB)
+...
+004 (51642777.000.000) 2026-01-16 02:59:49 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 0 19:54:04, Sys 0 04:24:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     9305    20480     20480 
+	   TimeExecute (s)      :    88233                    
+	   TimeSlotBusy (s)     :    88233                    
+...
+001 (51642777.000.000) 2026-01-16 03:00:52 Job executing on host: <10.14.4.25:9618?addrs=10.14.4.25-9618&alias=node775.cluster.ldas.cit&noUDP&sock=startd_2276_b9a4>
+	SlotName: slot1_10@node775.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_2071814"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+004 (51642777.000.000) 2026-01-17 04:13:22 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 0 20:07:58, Sys 0 04:49:59  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     9766    20480     20480 
+	   TimeExecute (s)      :    90750                    
+	   TimeSlotBusy (s)     :    90750                    
+...
+001 (51642777.000.000) 2026-01-17 04:18:39 Job executing on host: <10.14.9.199:9618?addrs=10.14.9.199-9618&alias=node2199.cluster.ldas.cit&noUDP&sock=startd_2431_0ad2>
+	SlotName: slot1_17@node2199.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_265498"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+004 (51642777.000.000) 2026-01-18 14:06:28 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 1 04:06:27, Sys 0 04:59:28  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     9766    20480     20480 
+	   TimeExecute (s)      :   121669                    
+	   TimeSlotBusy (s)     :   121669                    
+...
+001 (51642777.000.000) 2026-01-18 14:07:20 Job executing on host: <10.14.9.132:9618?addrs=10.14.9.132-9618&alias=node2132.cluster.ldas.cit&noUDP&sock=startd_3118528_6600>
+	SlotName: slot1_2@node2132.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_1913896"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+004 (51642777.000.000) 2026-01-19 15:09:11 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 0 20:13:40, Sys 0 04:41:39  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     9766    20480     20480 
+	   TimeExecute (s)      :    90111                    
+	   TimeSlotBusy (s)     :    90111                    
+...
+001 (51642777.000.000) 2026-01-19 15:14:15 Job executing on host: <10.14.9.147:9618?addrs=10.14.9.147-9618&alias=node2147.cluster.ldas.cit&noUDP&sock=startd_3834977_d21e>
+	SlotName: slot1_2@node2147.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3850679"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+022 (51642777.000.000) 2026-01-20 08:42:19 Job disconnected, attempting to reconnect
+    Local schedd and job shadow died, schedd now running again
+    Trying to reconnect to slot1_2@node2147.cluster.ldas.cit <10.14.9.147:9618?addrs=10.14.9.147-9618&alias=node2147.cluster.ldas.cit&noUDP&sock=startd_3834977_d21e>
+...
+023 (51642777.000.000) 2026-01-20 08:42:20 Job reconnected to slot1_2@node2147.cluster.ldas.cit
+    startd address: <10.14.9.147:9618?addrs=10.14.9.147-9618&alias=node2147.cluster.ldas.cit&noUDP&sock=startd_3834977_d21e>
+    starter address: <10.14.9.147:9618?addrs=10.14.9.147-9618&alias=node2147.cluster.ldas.cit&noUDP&sock=slot1_2_1939169_bc61_2187>
+...
+004 (51642777.000.000) 2026-01-21 03:03:46 Job was evicted. Code 1019 Subcode 0
+	(0) CPU times
+		Usr 1 03:15:22, Sys 0 06:41:32  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Reason: Preempted for a Priority user
+	Partitionable Resources :      Usage  Request Allocated 
+	   Cpus                 :                   1         1 
+	   Disk (KB)            :      17500    20480     20480 
+	   Memory (MB)          :       9766    20480     20480 
+	   TimeExecute (s)      : 1768993426                    
+	   TimeSlotBusy (s)     : 1768993426                    
+...
+001 (51642777.000.000) 2026-01-21 03:06:56 Job executing on host: <10.14.4.87:9618?addrs=10.14.4.87-9618&alias=node837.cluster.ldas.cit&noUDP&sock=startd_881728_a5c1>
+	SlotName: slot1_6@node837.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3615329"
+	Cpus = 1
+	Disk = 20480
+	GPUs = 0
+	Memory = 20480
+...
+005 (51642777.000.000) 2026-01-21 03:08:22 Job terminated.
+	(0) Abnormal termination (signal 9)
+	(0) No core file
+		Usr 0 00:00:22, Sys 0 00:00:38  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 5 09:12:57, Sys 1 04:47:06  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :    17500    20480     20480 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     9766    20480     20480 
+	   TimeExecute (s)      :       86                    
+	   TimeSlotBusy (s)     :       86                    
+...

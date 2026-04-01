@@ -1,0 +1,4 @@
+  File "/home/jessica.irwin/mbank/inject-eosevents.py", line 5
+    from mbank.utils import load_PSD, plot_tiles_templates, compute_injections_match, ray_compute_injections_match save_inj_stat_dict, plot_tiles_templates, plot_match_histogram
+                                                                                                                   ^
+SyntaxError: invalid syntax

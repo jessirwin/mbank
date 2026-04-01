@@ -1,0 +1,21 @@
+universe = vanilla
+executable = /home/jessica.irwin/.conda/envs/nds2utils/bin/python
+accounting_group = ligo.sim.o3.cbc.explore.test 
+accounting_group_user = jessica.irwin
+
+output = condor/injmbank_randomevents.out
+error = condor/injmbank_randomevents.err
+log = condor/injmbank_randomevents.log
+
+request_memory = 30G
+retry_request_memory_increase = 2G
+retry_request_memory_max = 100G
+
+request_disk = 1G
+request_cpus = 8
+# notification = error
+
+arguments = inject-eosevents.py
+# arguments = injection_brute_Mqlambdatilde_eosinformed.py
+# arguments = build-inject.py
+queue 1

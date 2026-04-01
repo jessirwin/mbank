@@ -180,7 +180,8 @@ class cbc_bank:
 		
 		"""
 			#getting the masses and spins of the rows
-		m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, e, meanano, iota, phi = self.var_handler.get_BBH_components(self.templates, self.variable_format).T
+            # need to make this generic
+		m1, m2, s1x, s1y, s1z, s2x, s2y, s2z, lambdatilde, e, meanano, iota, phi = self.var_handler.get_BBH_components(self.templates, self.variable_format).T
 		
 		if np.any(e != 0.):
 			msg = "Currently xml format does not support eccentricity... The saved bank '{}' will have zero eccentricity".format(filename)

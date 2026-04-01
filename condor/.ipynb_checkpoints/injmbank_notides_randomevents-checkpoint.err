@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/jessica.irwin/mbank/build-inject.py", line 141, in <module>
+    start_time = time.time()
+NameError: name 'time' is not defined

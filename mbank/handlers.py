@@ -712,9 +712,14 @@ class variable_handler(object):
             s2x, s2y = theta[:,5]*np.sin(theta[:,6])*np.cos(theta[:,7]), theta[:,5]*np.sin(theta[:,6])*np.sin(theta[:,7])
             s2z = theta[:,5]*np.cos(theta[:,6])
 
+             #allocating variables for tides
+        l1, l2 = np.zeros(m1.shape), np.zeros(m1.shape)
+
             #setting the tides
         if self.format_info[variable_format]['tidal_format'] == 'lambdatilde' and self.format_info[variable_format]['spin_format'] =='nonspinning':
             l1, l2 = bilby.gw.conversion.lambda_tilde_to_lambda_1_lambda_2(theta[:,2], theta[:,0], theta[:,1])
+        elif self.format_info[variable_format]['tidal_format'] == 'notides' and self.format_info[variable_format]['spin_format'] =='nonspinning':
+            pass
 
             #dealing with angles and eccentricity (tricky!!)
         assign_var =  [self.format_info[variable_format]['e'], self.format_info[variable_format]['meanano'],

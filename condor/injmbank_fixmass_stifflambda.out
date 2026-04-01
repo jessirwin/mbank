@@ -1,0 +1,15 @@
+open bank in compatible  format
+number of templates 72305
+open flow
+number of injections 13352
+injections found
+computing injections
+saving injections
+making plots
+percentage injections >0.97 match 48.99640503295387
+(13352, 3)
+True
+injections present
+injections shape (13352, 3)
+plotting histogram
+injection study done

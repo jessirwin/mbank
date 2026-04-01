@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/jessica.irwin/mbank/injection_brute_Mqlambdatilde_eosinformed.py", line 123, in <module>
+    inj_stat_dict = ray_compute_injections_match(stat_dict, bank,
+NameError: name 'ray_compute_injections_match' is not defined

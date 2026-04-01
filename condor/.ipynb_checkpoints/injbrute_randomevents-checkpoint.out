@@ -1,0 +1,16 @@
+performing injections with stochastically placed template bank
+changing file format:
+open bank in compatible  format
+bank open, continue
+number of injections 1000
+injections found
+computing injections
+compute match time 13363.944114923477
+saving injections
+making plots
+(1000, 3)
+True
+injections present
+injections shape (1000, 3)
+plotting histogram
+injection study done

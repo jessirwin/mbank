@@ -1,0 +1,14 @@
+universe = vanilla
+executable = /home/jessica.irwin/.conda/envs/nds2utils/bin/python
+accounting_group = ligo.sim.o3.cbc.explore.test 
+accounting_group_user = jessica.irwin
+
+output = condor/build.out
+error = condor/build.err
+log = condor/build.log
+request_memory = 20G
+request_disk = 20M
+# notification = error
+
+arguments = build-inject.py
+queue 1

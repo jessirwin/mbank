@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/jessica.irwin/mbank/injection_brute_Mqlambdatilde_eosinformed.py", line 124, in <module>
+    start_time = time.time()
+NameError: name 'time' is not defined
